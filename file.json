@@ -1,0 +1,121 @@
+{
+    "State.b534896f-5db3-4027-ad89-39ddd2fb61db": {
+        "id": "b534896f-5db3-4027-ad89-39ddd2fb61db",
+        "created_at": "2023-07-31T10:34:16.360218",
+        "updated_at": "2023-07-31T10:34:16.360221",
+        "name": "",
+        "__class__": "State"
+    },
+    "State.bf418df3-c30d-47a3-acb6-dce5f9a79594": {
+        "id": "bf418df3-c30d-47a3-acb6-dce5f9a79594",
+        "created_at": "2023-07-31T10:34:16.361191",
+        "updated_at": "2023-07-31T10:34:16.361195",
+        "name": "",
+        "__class__": "State"
+    },
+    "State.df44f87d-8581-4e76-b756-6abd42a99f3a": {
+        "id": "df44f87d-8581-4e76-b756-6abd42a99f3a",
+        "created_at": "2023-07-31T13:37:21.166008",
+        "updated_at": "2023-07-31T13:37:21.166011",
+        "key": "California",
+        "__class__": "State"
+    },
+    "State.1af81ae3-8b4d-4b68-b617-e0673fd9972e": {
+        "id": "1af81ae3-8b4d-4b68-b617-e0673fd9972e",
+        "created_at": "2023-07-31T13:37:21.174188",
+        "updated_at": "2023-07-31T13:37:21.174197",
+        "key": "Arizona",
+        "__class__": "State"
+    },
+    "Place.f5fcc55f-5b8b-48bd-b99c-80e9d332f24d": {
+        "id": "f5fcc55f-5b8b-48bd-b99c-80e9d332f24d",
+        "created_at": "2023-07-31T13:37:21.175604",
+        "updated_at": "2023-07-31T13:37:21.175609",
+        "key": "10",
+        "__class__": "Place"
+    },
+    "State.9df17392-1e1f-460a-87a8-e94c90322eff": {
+        "id": "9df17392-1e1f-460a-87a8-e94c90322eff",
+        "created_at": "2023-07-31T13:38:23.152962",
+        "updated_at": "2023-07-31T13:38:23.152965",
+        "key": "California",
+        "__class__": "State"
+    },
+    "State.37b20865-36d4-4e60-a548-569215e7cd04": {
+        "id": "37b20865-36d4-4e60-a548-569215e7cd04",
+        "created_at": "2023-07-31T13:38:23.161314",
+        "updated_at": "2023-07-31T13:38:23.161318",
+        "key": "Arizona",
+        "__class__": "State"
+    },
+    "Place.ab44e558-eeab-4e9c-aaf0-6548e0577ec5": {
+        "id": "ab44e558-eeab-4e9c-aaf0-6548e0577ec5",
+        "created_at": "2023-07-31T13:38:23.163699",
+        "updated_at": "2023-07-31T13:38:23.163704",
+        "key": "10",
+        "__class__": "Place"
+    },
+    "State.5054bb44-168b-46d5-9468-2a887638b149": {
+        "id": "5054bb44-168b-46d5-9468-2a887638b149",
+        "created_at": "2023-07-31T13:38:52.303432",
+        "updated_at": "2023-07-31T13:38:52.303435",
+        "key": "California",
+        "__class__": "State"
+    },
+    "State.71b15a0b-bf53-43c4-8d70-77179827ccc1": {
+        "id": "71b15a0b-bf53-43c4-8d70-77179827ccc1",
+        "created_at": "2023-07-31T13:38:52.309369",
+        "updated_at": "2023-07-31T13:38:52.309373",
+        "key": "Arizona",
+        "__class__": "State"
+    },
+    "Place.627c348e-1f26-4baf-afd1-02f28ae9c1a2": {
+        "id": "627c348e-1f26-4baf-afd1-02f28ae9c1a2",
+        "created_at": "2023-07-31T13:38:52.311444",
+        "updated_at": "2023-07-31T13:38:52.311449",
+        "key": "10",
+        "__class__": "Place"
+    },
+    "State.f62a4eef-3b09-4b59-8d89-02af050aa7b9": {
+        "id": "f62a4eef-3b09-4b59-8d89-02af050aa7b9",
+        "created_at": "2023-07-31T13:40:25.310084",
+        "updated_at": "2023-07-31T13:40:25.310087",
+        "key": "California",
+        "__class__": "State"
+    },
+    "State.60b44acb-d451-41f2-ae8b-15181c5c9d40": {
+        "id": "60b44acb-d451-41f2-ae8b-15181c5c9d40",
+        "created_at": "2023-07-31T13:40:25.319324",
+        "updated_at": "2023-07-31T13:40:25.319329",
+        "key": "Arizona",
+        "__class__": "State"
+    },
+    "Place.6fbba6a7-5c6e-41a0-ad8e-abf49b3b06fc": {
+        "id": "6fbba6a7-5c6e-41a0-ad8e-abf49b3b06fc",
+        "created_at": "2023-07-31T13:40:25.321537",
+        "updated_at": "2023-07-31T13:40:25.321542",
+        "key": "10",
+        "__class__": "Place"
+    },
+    "State.2a107452-246b-4e71-997c-f68aa30bd1dd": {
+        "id": "2a107452-246b-4e71-997c-f68aa30bd1dd",
+        "created_at": "2023-07-31T13:43:05.945765",
+        "updated_at": "2023-07-31T13:43:05.945769",
+        "key": "California",
+        "__class__": "State"
+    },
+    "State.3746b25b-5aee-4a8b-83b8-690986d9e007": {
+        "id": "3746b25b-5aee-4a8b-83b8-690986d9e007",
+        "created_at": "2023-07-31T13:43:05.954377",
+        "updated_at": "2023-07-31T13:43:05.954382",
+        "key": "Arizona",
+        "__class__": "State"
+    },
+    "Place.880e4457-c432-493b-9f2e-6145e6963372": {
+        "id": "880e4457-c432-493b-9f2e-6145e6963372",
+        "created_at": "2023-07-31T13:43:05.956971",
+        "updated_at": "2023-07-31T13:43:05.956977",
+        "key": "10",
+        "__class__": "Place"
+    }
+}
