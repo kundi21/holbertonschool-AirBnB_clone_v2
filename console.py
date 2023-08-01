@@ -125,18 +125,16 @@ class HBNBCommand(cmd.Cmd):
         else:
             dict_of_data = {}
             """ extrayendo datos limpios de la entrada de consola"""
-            for input in spl_arg:
-                if "=" in input:
-                    list_of_data = input.split("=")
-                    list_of_data[1] = list_of_data[1].replace('"', '')
-                    list_of_data[1] = list_of_data[1].replace("_", ' ')
-                    prop_name = list_of_data[0]
-                    value_prop = list_of_data[1]
-                    dict_of_data.update({prop_name: value_prop})
+            for i in range(1, len(spl_arg)):
+                list_of_data = spl_arg[i].split("=")
+                list_of_data[1] = list_of_data[1].replace('"', '')
+                list_of_data[1] = list_of_data[1].replace("_", ' ')
+                prop_name = list_of_data[0]
+                value_prop = list_of_data[1]
+                dict_of_data.update({prop_name: value_prop})
             new_instance = HBNBCommand.classes[spl_arg[0]]()
 
             for key, val in dict_of_data.items():
-                print("key {} val {}".format(key, val))
                 if key == "number_rooms" or key == "number_bathrooms" \
                         or key == "max_guest":
                     val = int(val)
