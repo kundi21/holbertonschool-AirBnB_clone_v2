@@ -137,7 +137,8 @@ class HBNBCommand(cmd.Cmd):
 
             for key, val in dict_of_data.items():
                 print("key {} val {}".format(key, val))
-                if key == "number_rooms" or key == "number_bathrooms" or key == "max_guest":
+                if key == "number_rooms" or key == "number_bathrooms" \
+                        or key == "max_guest":
                     val = int(val)
                 if key == "latitude" or key == "longitude":
                     val = float(val)
