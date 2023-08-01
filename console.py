@@ -19,16 +19,16 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
 
     classes = {
-               'BaseModel': BaseModel, 'User': User, 'Place': Place,
-               'State': State, 'City': City, 'Amenity': Amenity,
-               'Review': Review
-              }
+        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+        'State': State, 'City': City, 'Amenity': Amenity,
+        'Review': Review
+    }
     dot_cmds = ['all', 'count', 'show', 'destroy', 'update']
     types = {
-             'number_rooms': int, 'number_bathrooms': int,
-             'max_guest': int, 'price_by_night': int,
-             'latitude': float, 'longitude': float
-            }
+        'number_rooms': int, 'number_bathrooms': int,
+        'max_guest': int, 'price_by_night': int,
+        'latitude': float, 'longitude': float
+    }
 
     def preloop(self):
         """Prints if isatty is false"""
@@ -73,7 +73,7 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if pline[0] is '{' and pline[-1] is'}'\
+                    if pline[0] is '{' and pline[-1] is '}'\
                             and type(eval(pline)) is dict:
                         _args = pline
                     else:
@@ -124,22 +124,27 @@ class HBNBCommand(cmd.Cmd):
             return
         else:
             dict_of_data = {}
+            """ extrayendo datos limpios de la entrada de consola"""
             for input in spl_arg:
                 if "=" in input:
                     list_of_data = input.split("=")
                     list_of_data[1] = list_of_data[1].replace('"', '')
-                    list_of_data[0] = list_of_data[0].replace("_",' ')
-                    list_of_data[1] = list_of_data[1].replace("_",' ')
-                    prop_name = str(list_of_data[0])
+                    list_of_data[1] = list_of_data[1].replace("_", ' ')
+                    prop_name = list_of_data[0]
                     value_prop = list_of_data[1]
-                    dict_of_data.update({prop_name : value_prop})
-            """ imprimiendo los valres que se guardaron en el diccionario"""
-
+                    dict_of_data.update({prop_name: value_prop})
             new_instance = HBNBCommand.classes[spl_arg[0]]()
-            for key, val in dict_of_data.items():
-                print("(key) - {} - (value) - {}".format(key,val))
-                new_instance.key = val
 
+            for key, val in dict_of_data.items():
+                print("key {} val {}".format(key, val))
+                if key == "number_rooms" or key == "number_bathrooms" or key == "max_guest":
+                    val = int(val)
+                if key == "latitude" or key == "longitude":
+                    val = float(val)
+                if key == "price_by_night":
+                    val = int(val)
+                if type(val) in [str, int, float]:
+                    setattr(new_instance, key, val)
 
             storage.save()
             print(new_instance.id)
@@ -161,7 +166,7 @@ class HBNBCommand(cmd.Cmd):
             c_id = c_id.partition(' ')[0]
 
         if not c_name:
-            print("** class name missing **")
+            print("** class na{me missing **")
             return
 
         if c_name not in HBNBCommand.classes:
@@ -206,7 +211,7 @@ class HBNBCommand(cmd.Cmd):
         key = c_name + "." + c_id
 
         try:
-            del(storage.all()[key])
+            del (storage.all()[key])
             storage.save()
         except KeyError:
             print("** no instance found **")
@@ -338,6 +343,7 @@ class HBNBCommand(cmd.Cmd):
         """ Help information for the update class """
         print("Updates an object with new information")
         print("Usage: update <className> <id> <attName> <attVal>\n")
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
