@@ -1,7 +1,15 @@
 #!/usr/bin/python3
-"""This module instantiates an object of class FileStorage"""
+""" sets storage bwtween db and filstorage """
+
 from models.engine.file_storage import FileStorage
+from os import environ
 
 
-storage = FileStorage()
-storage.reload()
+if environ["HBNB_TYPE_STORAGE"] == "db":
+    from db_storage import DBStorage
+    storage = DBStorage()
+    storage.reload()
+else:
+    from engine.file_storage import FileStorage
+    storage = FileStorage()
+    storage.reload()
