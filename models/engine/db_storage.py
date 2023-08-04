@@ -1,56 +1,55 @@
 #!/usr/bin/python3
 """" setting de db class"""
 
-import sqlalchemy
+
+import sqlalchemy as db
 from sqlalchemy import create_engine
-from os import environ
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import scoped_session
+import os
+from sqlalchemy.orm import sessionmaker, scoped_session
+from sqlalchemy import MetaData
+from models.user import User
+from models.state import State
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
+from models.review import Review
 from models.base_model import Base
-from models import User, State, City, Amenity, Place, Review
 
 
 class DBStorage():
     """ this class manage the DB"""
 
-    __engine: None
-    __session: None
+    __engine = None
+    __session = None
 
     def __init__(self):
         """" set the dn engine for swl alchemy
         and erase all tables if test is happening """
 
         self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
-            environ["HBNB_MYSQL_USER"],
-            environ["HBNB_MYSQL_PWD"],
-            environ["HBNB_MYSQL_HOST"],
-            environ["HBNB_MYSQL_DB"],
+            os.getenv("HBNB_MYSQL_USER"),
+            os.getenv("HBNB_MYSQL_PWD"),
+            os.getenv("HBNB_MYSQL_HOST"),
+            os.getenv("HBNB_MYSQL_DB"),
             pool_pre_ping=True))
-        if environ["HBNB_ENV"] == "test":
-            meta = sqlalchemy.MetaData(self.__engine)
-            meta.reflect()
-            meta.drop_all()
+        if os.getenv('HBNB_ENV') == 'test':
+            m = MetaData()
+            m.reflect(self.__engine)
+            m.drop_all(self.__engine)
 
     def all(self, cls=None):
         """" list all tables or all from one specific askedd in cls"""
-        classes = ["BaseModel", "City", "Place",
-                   "Amenity", "Review", "State", "User"]
-        result_dict = {}
-        if cls:
-            result = self.__session.query(cls).all()
-            key = ""
-            for r in result:
-                key = str(result.name) + '.' + str(result.id)
-                result_dict.update({key: r})
-            return result_dict
+        objects = {}
+        if cls is not None:
+            for instance in self.__session.query(cls):
+                objects[cls.__name__ + '.' + instance.id] = instance
+            return objects
         else:
-            for c in classes:
-                result = self.__session.query(c).all()
-                key = str(r[0].name) + '.' + str(r[0].id)
-                result_dict.update({key: result})
-
-            return result_dict
+            classes = ["Amenity", "City", "Place", "Review", "State", "User"]
+            for i in classes:
+                for instance in self.__session(i):
+                    objects[i + '.' + instance.id] = instance
+            return objects
 
     def new(self, obj):
         """" add an object to the database """

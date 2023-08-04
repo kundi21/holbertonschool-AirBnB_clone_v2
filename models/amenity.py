@@ -2,12 +2,16 @@
 """ State Module for HBNB project """
 from models.base_model import BaseModel
 from models.base_model import Base
-import sqlalchemy as db
 from sqlalchemy import Column, String
+import os
 
 
 class Amenity(BaseModel, Base):
 
-    __tablename__ = "amenities"
+    if os.getenv("HBNB_TYPE_STORAGE") == "db":
+        __tablename__ = "amenities"
 
-    name = Column(String(128), unique=True, nullable=False)
+        name = Column(String(128), unique=True,
+                      primary_key=True, nullable=False)
+    else:
+        name = ""
