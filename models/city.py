@@ -3,7 +3,6 @@
 from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import Column, String, ForeignKey, Integer
-from sqlalchemy.orm import relationship
 import os
 
 
@@ -17,8 +16,8 @@ class City(BaseModel, Base):
                       primary_key=True, nullable=False)
         state_id = Column(String(60), ForeignKey('states.id'), nullable=False)
 
-        places = relationship("Place", backref="cities",
-                              cascade="all, delete, delete-orphan")
+        # places = relationship("Place", backref="cities",
+        #   cascade="all, delete, delete-orphan")
     else:
         state_id = ""
         name = ""
