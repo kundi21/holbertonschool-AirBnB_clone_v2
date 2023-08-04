@@ -4,6 +4,7 @@ from models.base_model import BaseModel
 from models.base_model import Base
 from sqlalchemy import Column, String
 import os
+from sqlalchemy.orm import relationship
 
 
 class Amenity(BaseModel, Base):
@@ -13,5 +14,7 @@ class Amenity(BaseModel, Base):
 
         name = Column(String(128), unique=True,
                       primary_key=True, nullable=False)
+        places = relationship(
+            'Place', secondary=place_amenity, back_populates='amenities')
     else:
         name = ""
