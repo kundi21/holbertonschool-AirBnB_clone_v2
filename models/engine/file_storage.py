@@ -60,6 +60,8 @@ class FileStorage:
         """ Delete a None Object """
         objClass = str(obj.__class__.__name__)
         if obj is not None:
-            objKey = objClass + "." + str(obj.id)
-            if objKey in FileStorage.__objects:
-                FileStorage.__objects.pop(objKey)
+            
+            objKey = obj.__class__.__name__ + "." + obj.id
+            
+            if objKey in self.__objects:
+                self.__objects.pop(objKey)
