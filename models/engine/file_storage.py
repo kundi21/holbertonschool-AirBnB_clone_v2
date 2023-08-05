@@ -61,5 +61,5 @@ class FileStorage:
         objClass = str(obj.__class__.__name__)
         if obj is not None:
             objKey = objClass + "." + str(obj.id)
-            if objKey in FileStorage.__objects:
-                FileStorage.__objects.pop(objKey)
+            if objKey in self.__objects:
+                del self.__objects[objKey]
