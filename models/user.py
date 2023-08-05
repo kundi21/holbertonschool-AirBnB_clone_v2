@@ -9,9 +9,8 @@ import os
 class User(BaseModel, Base):
     """This module  defines a user by various attributes"""
 
-    __tablename__ = "users"
-
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
+        __tablename__ = "users"
         """This class defines a user by various attributes"""
         email = Column(String(128), nullable=False)
         password = Column(String(128), nullable=False)
