@@ -60,15 +60,16 @@ class Place(BaseModel, Base):
 
         @property
         def amenities(self):
-            """Getter attribute """
-            from models.amenity import Amenity
-            from models import storage
-            amenities_list = []
-            for amenity_id in self.amenity_ids:
-                amenity_obj = storage.get(Amenity, amenity_id)
-                if amenity_obj:
-                    amenities_list.append(amenity_obj)
-            return amenities_list
+            return self.amenity_ids
+            # """Getter attribute """
+            # from models.amenity import Amenity
+            # from models import storage
+            # amenities_list = []
+            # for amenity_id in self.amenity_ids:
+            #     amenity_obj = storage.get(Amenity, amenity_id)
+            #     if amenity_obj:
+            #         amenities_list.append(amenity_obj)
+            # return amenities_list
 
         @amenities.setter
         def amenities(self, obj):
