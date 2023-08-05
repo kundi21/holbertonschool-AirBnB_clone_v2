@@ -15,8 +15,8 @@ class FileStorage:
         else:
             list_of_obj = {}
             for key, val in self.__objects.items():
-                if FileStorage.__objects[key].__class__ == cls:
-                    list_of_obj[key] = str(val)
+                if cls == val.__class__ or cls == val.__class__.__name__:
+                    list_of_obj[key] = val
             return list_of_obj
 
     def new(self, obj):
