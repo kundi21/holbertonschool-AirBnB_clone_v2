@@ -4,6 +4,14 @@ from models.base_model import BaseModel
 from models.base_model import Base
 import os
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Table
+
+place_amenity = Table('place_amenity', Base.metadata,
+                      Column('place_id', String(60), ForeignKey(
+                          'places.id'), primary_key=True, nullable=False),
+                      Column('amenity_id', String(60), ForeignKey(
+                          'amenities.id'), primary_key=True, nullable=False)
+                      )
 
 
 class Place(BaseModel, Base):
@@ -34,3 +42,22 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
+    @property
+    def amenities(self):
+        """Getter attribute """
+        from models.amenity import Amenity
+        from models import storage
+        amenities_list = []
+        for amenity_id in self.amenity_ids:
+            amenity_obj = storage.get(Amenity, amenity_id)
+            if amenity_obj:
+                amenities_list.append(amenity_obj)
+        return amenities_list
+
+    @amenities.setter
+    def amenities(self, obj):
+        """Setter attribute """
+        from models.amenity import Amenity
+        if isinstance(obj, Amenity):
+            self.amenity_ids.append(obj.id)
