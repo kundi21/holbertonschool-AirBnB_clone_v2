@@ -5,6 +5,7 @@ from models.base_model import Base
 import os
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy import Table
+from sqlalchemy.orm import relationship
 
 place_amenity = Table('place_amenity', Base.metadata,
                       Column('place_id', String(60), ForeignKey(
@@ -30,6 +31,7 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, default=0, nullable=False)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
+        reviews = relationship("Review", cascade="all,delete", backref="place")
     else:
         city_id = ""
         user_id = ""
@@ -42,6 +44,17 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+
+        @property
+        def reviews(self):
+            """"append cities that share state.id"""
+            from models import storage
+
+            reviewsOfPlace = []
+            for obj in storage.all():
+                if obj.__class__.__name__ == 'Review':
+                    if obj.place_id == self.id:
+                        reviewsOfPlace.append(obj)
 
         @property
         def amenities(self):
