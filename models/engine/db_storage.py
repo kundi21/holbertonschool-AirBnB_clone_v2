@@ -40,21 +40,22 @@ class DBStorage():
     def all(self, cls=None):
         """" list all tables or all from one specific askedd in cls"""
         objects = {}
-        if cls is not None:
-            for obj in self.__session.query(cls):
-                objects[cls.__name__ + '.' + obj.id] = obj
-            return objects
+        if cls:
+            objects = self.__session.query(cls).all()
         else:
-            classes = ["Amenity", "City", "Place", "Review", "State", "User"]
-            for i in classes:
-                for obj in self.__session(i):
-                    objects[i + '.' + obj.id] = obj
-            return objects
+            objects = self.__session.query(User).all()
+            objects.extend(self.__session.query(State).all())
+            objects.extend(self.__session.query(City).all())
+            objects.extend(self.__session.query(Amenity).all())
+            objects.extend(self.__session.query(Place).all())
+            objects.extend(self.__session.query(Review).all())
+        result_dict = {"{}.{}".format(obj.__class__.__name__,
+                                      obj.id): obj for obj in objects}
+        return result_dict
 
     def new(self, obj):
         """" add an object to the database """
         self.__session.add(obj)
-        self.__session.commit()
 
     def save(self):
         """ commit all changes """
@@ -69,6 +70,7 @@ class DBStorage():
     def reload(self):
         """ create tables in DB and session """
         Base.metadata.create_all(self.__engine)
-        session = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(session)
+        Session = scoped_session(
+            sessionmaker(bind=self.__engine,
+                         expire_on_commit=False))
         self.__session = Session()
