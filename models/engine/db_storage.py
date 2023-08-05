@@ -41,14 +41,14 @@ class DBStorage():
         """" list all tables or all from one specific askedd in cls"""
         objects = {}
         if cls is not None:
-            for instance in self.__session.query(cls):
-                objects[cls.__name__ + '.' + instance.id] = instance
+            for obj in self.__session.query(cls):
+                objects[cls.__name__ + '.' + obj.id] = obj
             return objects
         else:
             classes = ["Amenity", "City", "Place", "Review", "State", "User"]
             for i in classes:
-                for instance in self.__session(i):
-                    objects[i + '.' + instance.id] = instance
+                for obj in self.__session(i):
+                    objects[i + '.' + obj.id] = obj
             return objects
 
     def new(self, obj):
