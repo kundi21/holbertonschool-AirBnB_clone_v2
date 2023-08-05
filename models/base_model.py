@@ -3,7 +3,7 @@
 import uuid
 from datetime import datetime
 from sqlalchemy import DateTime
-from sqlalchemy import Column, String, DateTime
+from sqlalchemy import Column, String
 from sqlalchemy.ext.declarative import declarative_base
 import os
 
@@ -15,19 +15,17 @@ class BaseModel:
 
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
         id = Column(String(60), unique=True, nullable=False, primary_key=True)
-    created_at = Column(
-        DateTime, default=datetime.utcnow, nullable=False
-    )
-    updated_at = Column(
-        DateTime, default=datetime.utcnow, nullable=False
-    )
+        created_at = Column(DateTime, nullable=False,
+                            default=datetime.utcnow())
+        updated_at = Column(DateTime, nullable=False,
+                            default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
         if not kwargs:
             self.id = str(uuid.uuid4())
-            self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
         else:
             for key, value in kwargs.items():
                 if key == "updated_at" or key == "created_at":
@@ -35,12 +33,6 @@ class BaseModel:
                         value, '%Y-%m-%dT%H:%M:%S.%f'))
                 elif key != "__class__":
                     setattr(self, key, value)
-            if 'id' not in kwargs:
-                self.id = str(uuid.uuid4())
-            if 'created_at' not in kwargs:
-                self.created_at = datetime.utcnow()
-            if 'updated_at' not in kwargs:
-                self.updated_at = datetime.utcnow()
 
     def __str__(self):
         """Returns a string representation of the instance"""
@@ -57,11 +49,11 @@ class BaseModel:
     def to_dict(self):
         """Convert instance into dict format"""
         dictionary = self.__dict__.copy()
-        dictionary['__class__'] = self.__class__.__name__
-        for key, value in dictionary.items():
-            if isinstance(value, datetime):
-                dictionary[key] = value.isoformat()
-        del dictionary['_sa_instance_state']
+        dictionary.update({'__class__':
+                          (str(type(self)).split('.')[-1]).split('\'')[0]})
+        dictionary['created_at'] = self.created_at.isoformat()
+        dictionary['updated_at'] = self.updated_at.isoformat()
+        dictionary.pop('_sa_instance_state', None)
         return dictionary
 
     def delete(self):
