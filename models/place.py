@@ -6,17 +6,19 @@ import os
 from sqlalchemy import Column, String, Integer, Float, ForeignKey
 from sqlalchemy import Table
 from sqlalchemy.orm import relationship
-
-place_amenity = Table('place_amenity', Base.metadata,
-                      Column('place_id', String(60), ForeignKey(
-                          'places.id'), primary_key=True, nullable=False),
-                      Column('amenity_id', String(60), ForeignKey(
-                          'amenities.id'), primary_key=True, nullable=False)
-                      )
+from models.review import Review
+from models.amenity import Amenity
 
 
 class Place(BaseModel, Base):
     """ A place to stay """
+
+    place_amenity = Table('place_amenity', Base.metadata,
+                          Column('place_id', String(60), ForeignKey(
+                              'places.id'), primary_key=True, nullable=False),
+                          Column('amenity_id', String(60), ForeignKey(
+                              'amenities.id'), primary_key=True, nullable=False)
+                          )
 
     __tablename__ = "places"
     if os.getenv("HBNB_TYPE_STORAGE") == "db":
@@ -53,22 +55,21 @@ class Place(BaseModel, Base):
             from models import storage
 
             reviewsOfPlace = []
-            for obj in storage.all():
-                if obj.__class__.__name__ == 'Review':
-                    if obj.place_id == self.id:
-                        reviewsOfPlace.append(obj)
+            for obj in storage.all(Review).values():
+                if obj.place_id == self.id:
+                    reviewsOfPlace.append(obj)
+                return reviewsOfPlace
 
         @property
         def amenities(self):
             """Getter attribute """
-            from models.amenity import Amenity
             from models import storage
-            amenities_list = []
-            for amenity_id in self.amenity_ids:
-                amenity_obj = storage.get(Amenity, amenity_id)
-                if amenity_obj:
-                    amenities_list.append(amenity_obj)
-            return amenities_list
+            list_of_amenities = []
+            all_amenities = storage.all(Amenity)
+            for key, obj in all_amenities.items():
+                if key in self.amenity_ids:
+                    list_of_amenities.append(obj)
+            return list_of_amenities
 
         @amenities.setter
         def amenities(self, obj):
