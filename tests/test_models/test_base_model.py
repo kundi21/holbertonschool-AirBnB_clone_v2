@@ -128,7 +128,26 @@ class test_basemodel(unittest.TestCase):
     def test_docs(self):
         """Tests for docstrings"""
         self.assertIsNotNone(BaseModel.__doc__)
+    
+    def test_id(self):
+        """BaseModel id"""
+        new = self.value()
+        self.assertEqual(type(new.id), str)
+
+    def test_created_at(self):
+        """BaseModel created_at"""
+        new = self.value()
+        self.assertEqual(type(new.created_at), datetime.datetime)
+
+    def test_updated_at(self):
+        """BaseModel updated_at"""
+        new = self.value()
+        self.assertEqual(type(new.updated_at), datetime.datetime)
+        n = new.to_dict()
+        new = BaseModel(**n)
+        self.assertFalse(new.created_at == new.updated_at)
 
 
 if __name__ == "__main__":
     unittest.main()
+
