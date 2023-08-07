@@ -1,15 +1,10 @@
 #!/usr/bin/python3
-"""
-Unittests for the console
-"""
+"""Unittests for the console"""
+
 from typing import Any
 import unittest
 from console import HBNBCommand
 from models.engine.file_storage import FileStorage
-from contextlib import redirect_stdout
-import io
-
-
 
 class TestConsole(unittest.TestCase):
     """Console tests"""
