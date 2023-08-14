@@ -24,14 +24,13 @@ def c_route(text):
     text = text.replace('_', ' ')
     return f'C {text}'
 
+
 @app.route('/python/', defaults={'text': 'is_cool'}, strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python_text_sroute(text):
     """  revive a text variable and have a default value"""
     text = text.replace('_', ' ')
     return f'Python {text}'
-
-
 
 
 if __name__ == '__main__':
