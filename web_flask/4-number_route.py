@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ this module start a web app with flask """
-from flask import Flask
+from flask import Flask, render_template
 
 
 app = Flask(__name__)
@@ -32,11 +32,13 @@ def python_text_sroute(text):
     text = text.replace('_', ' ')
     return f'Python {text}'
 
-@app.routes('/number/<n>', strict_slashes=False)
+@app.route('/number/<n>', strict_slashes=False)
 def is_number(n):
     """ display if the number parameter is a number """
-    if type(n) == "<class 'list'>":
-        return f'{n} is int'
+    if n.isdigit():
+        int_n = int(n)
+        return f'{int_n} is a number'
+    return render_template("404.html")
 
 
 if __name__ == '__main__':
